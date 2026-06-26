@@ -1,0 +1,65 @@
+Write a query to calculate the average age of employees in each department.
+
+--->  select d.name as Deparment,avg(e.age) as average_age from employees e join departments d on e.department_id=d.id group by d.name;
+
++------------+-------------+
+| Deparment  | average_age |
++------------+-------------+
+| IT         |     37.5500 |
+| HR         |     38.4000 |
+| Finance    |     41.4500 |
+| Marketing  |     41.4000 |
+| Operations |     38.5500 |
++------------+-------------+
+
+
+ 
+Write a query to find the department with the highest number of employees whose age is above 40.
+
+---->
+
+select d.name as dept_name,count(e.name) as count_emp from employees e join departments d on e.department_id=d.id  where e.age >40 group by d.name order by count_emp desc limit 1
+
++------------+-----------+
+| dept_name  | count_emp |
++------------+-----------+
+| Operations |       101 |
++------------+-----------+
+
+
+Write a query to retrieve the count of employees who have in joined in last 100 days.
+
+--->
+select count(*) as count_emp_joined_in_100_days from employees where joining_date>=(select date_sub(current_date(),interval 100 day))
+
++------------------------------+
+| count_emp_joined_in_100_days |
++------------------------------+
+|                          100 |
++------------------------------+
+
+
+
+Write a query to update the joining date of all employees in the HR department to the yesterday.
+---->
+
+
+update employees set joining_date =(date_sub(current_date(),interval 1 day)) where department_id=(select id from departments where name ="HR");
+
+
+
+Write a query to retrieve the count of employees who have in joined in last 100 days.
+
+--->
+
+
+update employees set joining_date =(date_sub(current_date(),interval 1 day)) where department_id=(select id from departments where name ="HR");
+
+select count(*) as count_emp_joined_in_100_days from employees where joining_date>=(select date_sub(current_date(),interval 100 day))
+
++------------------------------+
+| count_emp_joined_in_100_days |
++------------------------------+
+|                          280 |
++------------------------------+
+ 
